@@ -73,10 +73,4 @@ class TasksScreen extends StatelessWidget {
 
 
 
-// {
-// Task newTask = Task(name: newTitle);
-// setState(() {
-//   tasks.add(newTask);
-// });
-// Navigator.pop(context);
-// }
+
