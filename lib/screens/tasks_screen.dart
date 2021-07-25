@@ -1,22 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/models/task_data.dart';
 import 'package:todo/screens/add_task_screen.dart';
 import 'package:todo/widgets/tasks_list.dart';
-import 'package:todo/models/task.dart';
+import 'package:provider/provider.dart';
 
 
-class TasksScreen extends StatefulWidget {
+class TasksScreen extends StatelessWidget {
 
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(name: 'buy anything 1'),
-    Task(name: 'buy anything 2'),
-    Task(name: 'buy anything 3'),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +32,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 Text('Todoey',
                   style: TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.w700),
                 ),
-                Text('${tasks.length} Tasks',
+                Text('${Provider.of<TaskData>(context,listen: true).taskCount} Tasks',
                 style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
@@ -49,7 +40,7 @@ class _TasksScreenState extends State<TasksScreen> {
           ),
           Expanded(
             child: Container(
-              child: TasksList(tasks: tasks),
+              child: TasksList(),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
@@ -68,16 +59,12 @@ class _TasksScreenState extends State<TasksScreen> {
                 builder: (context) => SingleChildScrollView(
                     child:Container(
                       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTaskScreen(callBack: (String newTitle){
-                        Task newTask = Task(name: newTitle);
-                        setState(() {
-                          tasks.add(newTask);
-                        });
-                        Navigator.pop(context);
-                      },),
-                    )
-                )
-            );
+                      child: AddTaskScreen()
+
+                      ,),
+                    ),
+                );
+
           }
       ),
     );
@@ -86,4 +73,10 @@ class _TasksScreenState extends State<TasksScreen> {
 
 
 
-
+// {
+// Task newTask = Task(name: newTitle);
+// setState(() {
+//   tasks.add(newTask);
+// });
+// Navigator.pop(context);
+// }
